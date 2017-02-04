@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block products-holder %}
+<style type="text/css">
+#image{
+  height:200px;
+  /*width:200px;*/
+}
+hr.tabsSeparator{
+  background:#5b5338;
+  display:block;
+  height:1px;
+  border:0;
+  width:100%;
+  clear:both;
+  top:-1px;
+  margin:0 0 10px 0;
+  position:relative
+}
+#discount{
+  color: red;
+  font-style: italic;
+}
+.row .try{
+  background-color: grey;
+}
+</style>
+<hr class="tabsSeparator"/>
+<div class="row">
+
+  <div class="col-md-5">
+    <br><br>{{product.name_of_product}}<br><br>
+    <p1>Get it at Ksh. <strong>{{product.price}}</strong></p1><p1 id="discount">  {% if product.discount %}(discount Ksh. {{product.discount}}) {% endif %}</p1><br><br>
+    <p1>{{product.shop}}'s <a href="{{product.shop.get_absolute_url}}">Shop</a></p1>
+
+  </div>
+    <div class="col-md-4">
+    <img id="image" src="{{product.picture.url}}">    
+  </div>
+</div>
+<div class="row try">
+  <div class="col-md-3">
+    <br><p1>&raquo;&raquo;Category: <strong>{{product.category}}</strong><br><br>
+    <p1>&raquo;&raquo;Quantity Available: <strong>{{product.quantity}}</strong></p1><br>
+  </div>
+  <div class="col-md-6">
+    <u><p1>Product Description </p1></u><br>
+    <p1>{{product.describe_the_item}}</p1><br>
+  </div>
+</div>
+
+<hr class="tabsSeparator"/>
+
+<h3>Similar Products You May wish to check out</h3>
+{% for item in products %}
+<a href="{{item.get_absolute_url}}">click</a>
+{{item.name_of_product}}
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,149 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>{{title}}</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- <link href="{% static 'css/navbar.css' %}" rel="stylesheet"> -->
+    <link rel="icon" href="{% static 'image/shop-icon.png' %}">
+</head>
+<style>
+body {
+  padding-top: 70px;
+}
+.topimage{
+  height:60px;
+  padding-top: 0px;
+}
+</style>
+<body>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{% url 'home' %}">Home</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
+            <li><a href="{% url 'shopmap' %}">Shop Map</a></li>
+            <!-- <li><a href="{% url 'productmap' %}">Product Map</a></li> -->
+            <li><a></a></li>  
+            <li>
+              <div id="search-box">
+                <form action="{% url "search" %}" method="GET" class="form-inline">
+                  <div class="form-group navbar-form">
+                    <input type="text" name="q" class="form-control" placeholder="Search...">
+                  </div>
+                  <!-- <button type="submit" class="btn btn-default">Search</button> -->
+                </form>
+              </div>
+            </li>
+            {% if request.user.is_superuser %}
+            <li><a href="/admin">Admin</a></li>
+            {% endif %}
+            
+          </ul>
+          <ul style = {paddig-right:20px;} class="nav navbar-nav navbar-right">
+            <div class="btn-group">
+              <button type="button" class="btn navbar-btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ request.user }}<span class="caret"></span>
+              </button>
+
+
+            <!-- <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ request.user }}<span class="caret"></span></a> -->
+              <ul class="dropdown-menu">
+                {% if not request.user.is_authenticated %}
+                <li><a href="{% url 'registration_register' %}">Register</a></li>
+                <li><a href="{% url 'auth_login' %}">Log In</a></li>
+                {% endif %}                  
+                <li><a href="{% url 'createshop' %}">Create Shop</a></li>
+                <li><a href="{% url 'createproduct' %}">Add Product</a></li>
+                <li><a href="#">Add Service</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                {% if request.user.is_authenticated %}
+                <li><a href="http://127.0.0.1:8000/accounts/profile/{{request.user}}">Profile</a></li>
+                <li><a href="{% url 'auth_password_change' %}">Change Password</a></li>
+                <li><a href="{% url 'auth_password_reset' %}">Reset Password</a></li>
+                <li><a href="{% url 'auth_logout' %}">Logout</a></li>
+                {% endif %}
+
+              </ul>
+            </li>
+            </div>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            {% block content %}
+            <style type="text/css">
+            .sub-category{
+              padding-left: 30px;
+              background-color: #f0f0f0;
+            }
+            .products-holder{
+               background-color: #f0f0f0;
+               border-radius: 5px;
+               border: 1px solid #f9f9f9;
+            }            
+            </style>
+            <div class="col-md-3 sidebar-offcanvas" id="sidebar">
+              <ul class="list-group">
+                {% for category in categories %}
+                <li class="list-group-item">
+                <a href="{% url "search" %}?q={{ category.name }}">{{ category.name }}</a>
+                </li>
+                {% for sub_category in category.sub_categories.all %}
+                <li class="list-group-item sub-category">
+                  <a href="{% url "search" %}?q={{ sub_category.name }}">{{ sub_category.name }}</a>
+                </li>
+                {% endfor %}
+                {% endfor %}
+              </ul> 
+            </div>
+
+
+            <div class="container col-md-8 products-holder"> 
+                {% block products-holder %}
+                <!-- preceding columns -->
+                {% endblock products-holder %}
+              
+            </div>
+
+
+
+
+            {% endblock content %}                        
+        </div>
+        <div class="row">
+            <!-- row two -->
+        </div>
+      
+    </div>
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script> 
+</body>
+</html>
+

@@ -1,0 +1,10 @@
+*.pyc
+*.pyo
+*.sqlite3
+GetADeal/GetADeal/local_settings.py
+GetADeal/spatial/data
+GetADeal/static/media_root
+bin
+include
+lib
+local

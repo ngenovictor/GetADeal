@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block products-holder %}
+{% load staticfiles %}
+{% load leaflet_tags %}
+{% load geojson_tags %}
+
+{% block extra_assets %}
+  {% leaflet_js %}
+  {% leaflet_css %}
+{% endblock %}
+
+<link rel="stylesheet" href="{% static 'leaflet-routing-machine/leaflet-routing-machine.css' %}" />
+<style>
+    #map{
+        height:500px;
+        width:100%;
+    }
+    .pic{
+        height: 20px;
+        width:20px;
+    }
+</style>
+
+<div class = "row">
+    <h2>Shop Map</h2>
+    <p1>The following map shows all the shops within Nakuru registered with <a href="{% url 'home' %}">GetADeal</a></p1><br>
+    <p1>The image <img class="pic" src="{% static 'image/shop-icon.png' %}"> as seen in the map below shows the shop locations and
+        you can use <img class="pic" src="{% static 'leaflet/images/layers.png' %}"> to change between different layers.</p1>
+    <script>
+    var myshops = {{data|safe}};
+    var mybuildings = {{mybuildings|safe}};
+    var iconurl = "{% static 'image/shop-icon.png' %}"
+    </script>
+    <div id="map"></div>
+     
+    <script type="text/javascript" src="{% static 'mine/shopmap.js' %}"></script>
+</div>
+<div class="row">
+    <div class="col-md-5">
+
+    </div>
+    <div class="col-md-1">
+       
+    </div>
+
+
+</div>
+<script src="{% static 'leaflet-routing-machine/leaflet-routing-machine.min.js' %}"></script>
+{% endblock %}      

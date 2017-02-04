@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block products-holder %}
+{% load staticfiles %}
+{% load leaflet_tags %}
+{% load geojson_tags %}
+
+
+  {% leaflet_js %}
+  {% leaflet_css %}
+
+<head>
+  <link href="{% static 'css/bootsrap.css' %}" rel="stylesheet">
+</head>
+<style type="text/css">
+.yangu{
+  height:1000px;
+}
+</style>
+
+<title>Maps</title>
+<h1>Maps|Mushroom Spots</h1>
+<p1>The Map below shows the distribution of mushroom farming points in Kenya</p1>
+
+      <script type="text/javascript">
+      var mypoints = {{points|geojsonfeature|safe}};
+      function map_init(map, options) {
+        L.geoJson(mypoints, {onEachFeature: onEachFeature}).addTo(map);
+      }
+      function onEachFeature(feature, layer) {
+            if (feature.properties) {}
+
+            layer.bindPopup();
+      }
+      </script>
+
+    <script type="text/javascript">
+      var collection = {{ qs_results|geojsonfeature|safe }};
+      
+      // var description = {{qs_results.description}};
+      
+
+      
+      
+    </script>
+    <div class="row">
+      <div class="">
+        <style>.leaflet-container-default {min-height: 550px;}</style>
+      {% leaflet_map "spots" callback="window.map_init" %}
+{{points|geojsonfeature|safe}}
+
+      </div>
+    </div>
+    <div class="row">
+
+ 
+    </div>
+
+    <!--<script src="{% static 'mine/mushroomlist.js' %}" type="text/javascript"></script> -->
+
+{% endblock products-holder %}

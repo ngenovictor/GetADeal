@@ -1,0 +1,71 @@
+{% extends "home.html" %}
+{% load staticfiles %}
+{% block results %}
+<div class="row">
+      <table class="table table-stripped">
+        <thead>
+          <tr>
+            <th>
+              Category
+            </th>
+            <th>
+              Product Name
+            </th>
+            <th>
+              Picture Url
+            </th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in items %}
+            <tr>
+              <td>{{ item.category.name }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.picture }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% endblock results %}
+<!-- 
+
+
+ {% block products-holder %}
+    <ul class="nav nav-pills" id="menu_area">
+      <li class="active"><a href="{% url "search" %}?q={{ search_item }}" data-toggle="tab" id="menu_text">Results</a></li>
+      <li><a href="#" data-toggle="tab" id="menu_text">View on Map</a></li>
+    </ul>
+    <div class="row">
+      <table class="table table-stripped">
+        <thead>
+          <tr>
+            <th>
+              Category
+            </th>
+            <th>
+              Product Name
+            </th>
+            <th>
+              Picture Url
+            </th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in items %}
+            <tr>
+              <td>{{ item.category.name }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.picture }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+    {% endblock products-holder %}
+   -->

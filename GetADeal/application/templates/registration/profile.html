@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<style>
+.profilepic{
+	height: 100px;
+	width: 100px;
+}
+
+</style>
+{% block products-holder %}
+	{% for theuser in user %}
+	{{theuser.first_name}}<span>   </span>{{theuser.sur_name}}<br>
+	{{theuser.email}}<br>
+	{% endfor %}
+
+	{% for userdetail in userdetails %}
+	<div class="profilepic">
+		<img class="profilepic" src="{{userdetail.profile_pic.url}}">
+	</div>
+	{{userdetail.user}}
+	{% endfor %}
+{% endblock %}

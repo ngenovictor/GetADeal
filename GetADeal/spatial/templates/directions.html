@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load staticfiles %}
+<style type="text/css">
+.again{
+  padding-top: 150px;
+  padding-left: 10px;
+}
+.map, #map{
+  padding-left: 10px; 
+  width: 900px;
+  height: 750px;
+}
+.leaflet-control-locate.leaflet-bar a {
+  background-image: url('{% static "mine/directions/images/crosshairs.svg" %}');
+}
+.leaflet-retina .leaflet-control-layers-toggle {
+    background-image: url('{% static "mine/directions/images/layers.svg" %}');
+}
+.leaflet-control-layers-toggle {
+  background-image: url('{% static "mine/directions/images/layers.svg" %}');
+
+}
+.leaflet-routing-container.dark {
+
+  background-image: url('{% static "mine/directions/images/osrm_logo.svg" %}');
+
+}
+.osrm-directions-icon {
+    background-image: url('{% static "mine/directions/images/osrm.toolbar.icons.svg" %}');
+
+}
+.leaflet-routing-icon {
+    background-image: url('{% static "mine/directions/images/osrm.directions.icons.color.svg" %}');
+
+}
+.leaflet-routing-alt-minimized .leaflet-routing-icon {
+    background-image: url('{% static "mine/directions/images/osrm.directions.icons.color.svg" %}');
+}
+</style>
+<div class="row container-fluid again">
+    <link rel='stylesheet' href='{% static "leaflet/leaflet.css" %}' />
+    <script src='{% static "leaflet/leaflet.js" %}'></script>
+    <link rel="stylesheet" href="{% static 'mine/directions/fonts.css' %}" />
+    <link href="{% static 'mine/directions/site.css' %}" rel='stylesheet'/>
+
+    <div id='map' class='map'></div>
+    <script type="text/javascript">
+    var n = ['{% static "mine/directions/images/marker-start-icon-2x.png" %}', '{% static "mine/directions/images/marker-end-icon-2x.png" %}'];
+    </script>
+    <script src="{% static 'mine/directions/bundle2.js' %}"></script>
+
+</div>
+{% endblock %}

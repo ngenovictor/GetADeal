@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+
+{% block products-holder %}
+<div class='row container'>
+  <div class="col-md-5">
+    <h1>{{ title }}</h1>
+    <form method="POST">{% csrf_token %}
+        {{ form.as_p }}
+        <input class='btn  btn-primary' type="submit" value="Create &raquo;"/>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
+
+
+
+

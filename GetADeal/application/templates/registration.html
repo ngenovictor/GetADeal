@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+dvfgf
+{% block content %}
+<div class="row">
+	<h1>{{ title }}</h1>
+</div>
+<div class="row">
+  <div class="col-md-3">
+  		
+
+		<form method='POST' action='.'>{% csrf_token %}
+			{{ form|crispy }}
+			<input class='btn btn-primary' type='submit' value='Register &raquo;'/>
+		<form>
+	</div>
+	<div class="col-md-3">
+  		<h4>Registering on GETADEAL.space will give you the following advantages:</h4>
+	</div>
+</div>
+{% endblock %}

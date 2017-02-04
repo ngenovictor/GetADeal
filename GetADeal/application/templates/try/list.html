@@ -1,0 +1,23 @@
+{% load staticfiles %}
+<head>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'leaflet/leaflet.css' %}">
+	<style>
+	#map{
+		height:500px;
+		width:500px;
+	}
+	</style>
+</head>
+<body>
+	<!-- {{ json_buildings }} -->
+	<script>
+	var mybuildings = {{ json_buildings|safe }};
+	</script>
+	<div id="map"></div>
+
+
+</body>
+<script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
+<script type="text/javascript" src="{% static 'leaflet/leaflet.js' %}"></script>
+<script type="text/javascript" src="{% static 'mine/list.js' %}"></script>

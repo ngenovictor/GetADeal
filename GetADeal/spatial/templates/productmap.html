@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block products-holder %}
+{% load staticfiles %}
+{% load leaflet_tags %}
+{% load geojson_tags %}
+
+{% block extra_assets %}
+  {% leaflet_js %}
+  {% leaflet_css %}
+{% endblock %}
+<head>
+  <title>Maps</title>
+  <style type="text/css">
+    .yangu{
+      height:1000px;
+    }
+    #map{
+    	height:450px;
+    	width:100%%;
+    }
+  </style>
+</head>
+<h1>Product Map</h1>
+<p1>The Map below shows the distribution of products registered with <a href="{% url 'home' %}">GetADeal</a></p1>
+
+<script>
+var data = {{combined}};
+</script>
+
+<div id="map"></div>
+<script type="text/javascript" src="{% static 'mine/productmap.js' %}"></script>
+
+      <!-- {% leaflet_map "spots" callback="window.map_init" %} -->
+
+{% endblock products-holder %}

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+
+
+{% block products-holder %}
+
+<style>
+.try{
+  background-color: #29A3CC;
+  outline-width: 2px;
+}
+.try2{
+  font-color:white;
+
+}
+</style>
+
+
+<div class"container-fluid">
+  <nav class="navbar-inverse try">
+    <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active try2"><a href="{% url 'search' %}">Results</a></li>
+            <li class="try2"><a href="#">View On Map</a></li>
+            <li><a></a></li>              
+          </ul>
+    </div>
+  </nav>
+  <table class="table table-stripped">
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Product Name</th>
+      <th>Price</th> 
+      <th>Picture</th> 
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      
+      {% for item in items %}
+        <tr>
+          <td>{{ item.category.name }}</td>
+          <td><a href="{{item.get_absolute_url}}">{{ item.name_of_product }}</a></td>
+          <td>{{ item.price }}</td>
+          <td><img src="{{item.picture.url}}" alt="" height=40px width=40px/></td>
+        </tr>
+      
+      {% endfor %}
+
+    </tr>
+  </tbody>
+  </table>
+</div>  
+
+
+{% endblock products-holder %}
+
+

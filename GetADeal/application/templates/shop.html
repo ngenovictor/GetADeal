@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block products-holder %}
+<script type="text/javascript" src="{% static 'jquery.min.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'leaflet/leaflet.css' %}">
+<script type="text/javascript" src="{% static 'leaflet/leaflet.js' %}"></script>
+<style type="text/css">
+#map{
+	height: 400px;
+	width:440px;
+}
+#shopimage{
+	width: 300px;
+}
+.popupimage{
+	width:200px;
+}
+</style>
+
+<div class="row container-fluid">
+	<div class="col-md-6">
+		<h1>Shop Details</h1>
+		<table class="table table-bordered">
+		    <tbody>
+		      <tr>
+		        <td>Owner</td>
+		        <td>{{myshops.owner}}</td>
+		      </tr>
+		      <tr>
+		        <td>Shop Name</td>
+		        <td>{{myshops.name_of_shop}}</td>
+		      </tr>
+		      <tr>
+		        <td>Address</td>
+		        <td>{{myshops.address}}</td>
+		      </tr>
+		      <tr>
+		        <td>Tel. No.</td>
+		        <td>{{myshops.tel_no}}</td>
+		      </tr>
+		      <tr>
+		        <td>County</td>
+		        <td>{{myshops.county}}</td>
+		      </tr>
+		      <tr>
+		        <td>Town</td>
+		        <td>{{myshops.town}}</td>
+		      </tr>
+		      <tr>
+		        <td>Building</td>
+		        <td>{{myshops.building}}</td>
+		      </tr>
+		      <tr>
+		        <td>Room No.</td>
+		        <td>{{myshops.room_no}}</td>
+		      </tr>
+		      <tr>
+		        <td>Location Description</td>
+		        <td>{{myshops.describe_the_location}}</td>
+		      </tr>
+		      <tr>
+		        <td>Shop description</td>
+		        <td>{{myshops.describe_the_shop}}</td>
+		      </tr>
+		    </tbody>
+		</table>
+		<img id="shopimage" src="{{myshops.picture.url}}">
+	</div>
+	<div class="col-md-6">
+		<div id="map"></div>
+		<div>Directions</div>		
+	</div>
+</div>
+<div>
+	<h2>These are all products available in this shop</h2>
+	{% for product in shopproducts %}
+	<a href="{{product.get_absolute_url}}">{{product.name_of_product}}</a>
+	{% endfor %}
+</div>
+<script>
+var data = {{shopmap|safe}};
+var buildingmapdata = {{shopbuildingmap|safe}};
+var iconurl = "{% static 'image/shop-icon.png' %}";
+var osmlayer =  L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+	maxZoom: 18,
+	attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+		'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+		'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+	id: 'mapbox.streets'
+});
+
+var map = L.map('map', {
+    center: [-0.282440829745662, 36.075083608374314],
+    zoom: 15,
+    minZoom:2,
+    maxZoom:18,
+    layers:[osmlayer]
+});
+// <img class="extra" src='media/{{product.picture}}'>
+mapinfo = L.geoJson(data,{
+	onEachFeature:function(feature, layer){
+		var popupContent = "<p>" +
+			feature.properties.name_of_shop + '<br>'+
+			'<img class="popupimage" src="{{myshops.picture.url}}">';
+		if (feature.properties && feature.properties.popupContent){
+			popupContent += feature.properties.popupContent;
+		}
+		layer.bindPopup(popupContent);
+		layer.on({
+			click:function(e){
+				map.fitBounds(e.target.getBounds())
+			}
+		});
+	}
+}).addTo(map);
+L.geoJson(buildingmapdata,{
+	onEachFeature:function(feature,layer){
+		var popupContent = feature.properties.name + 
+							feature.properties.type;
+		if (feature.properties && feature.properties.popupContent){
+			popupContent += feature.properties.popupContent
+		}
+		layer.bindPopup(popupContent);
+		layer.on({
+			click:function(e){
+				map.fitBounds(e.target.getBounds())
+			}
+		});
+	},
+	style:function(feature){
+		return{
+			weight:1,
+			color:'#0000ff',
+		}
+	}
+}).addTo(map);
+</script>
+{% endblock products-holder %}

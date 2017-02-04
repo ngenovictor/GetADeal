@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+{% load leaflet_tags %}
+
+   {% leaflet_js plugins="forms" %}
+   {% leaflet_css plugins="forms" %}
+
+{% block products-holder %}
+
+<form method="POST" class="form-horizontal">{% csrf_token %}
+
+
+  <div class="form-group fieldWrapper">
+    <label for="{{ form.owner.id_for_label }}" class="col-sm-2 control-label">Owner</label>
+    <div class="col-sm-10"><!-- 
+      <input type="text" class="form-control" id="inputEmail3" placeholder="Name Of Shop"> -->
+      <input type="text" class="form-control" id="inputEmail3" placeholder="Name Of Shop">{{ form.owner }}
+    </div>
+  </div>
+
+
+
+  <div class="form-group fieldWrapper">
+    <label for="{{ form.name_of_shop.id_for_label }}" class="col-sm-2 control-label">Name Of Shop</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputEmail3" placeholder="Name Of Shop">
+    </div>
+  </div>
+
+
+
+
+  <input class='btn  btn-primary' type="submit" value="Submit &raquo;"/>
+</form>
+
+<!-- 
+<div class="row">
+	<div class="col-md-2 fieldWrapper">
+	    {{ form.owner.errors }}
+	    <label for="{{ form.owner.id_for_label }}">Owner</label>
+	    {{ form.owner }}
+	</div>
+	<div class="col-md-2 fieldWrapper">
+	    {{ form.name_of_shop.errors }}
+	    <label for="{{ form.name_of_shop.id_for_label }}">Shop Name:</label>
+	    {{ form.name_of_shop }}
+	</div>
+</div> -->
+
+
+{% endblock %}

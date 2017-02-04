@@ -1,0 +1,145 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>GDL.sp</title>
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/navbar.css' %}" rel="stylesheet">
+  </head>
+
+  <body>
+
+  <div class="container-fluid">
+
+      <!-- Static navbar -->
+      <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{% url 'home' %}">GETADEAL.space</a>
+        </div><!-- navbar header -->
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">              
+            <li><a href="{% url 'about' %}">About</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="{% url 'shopmap' %}">Shop Map</a></li>
+            <li><a href="{% url 'productmap' %}">Product Map</a></li>
+            <li><a></a></li>  
+            <li>
+              <div id="search-box">
+                <form action="{% url "search" %}" method="GET" class="form-inline">
+                  <div class="form-group navbar-form">
+                    <input type="text" name="q" class="form-control" placeholder="Search...">
+                  </div>
+                  <!-- <button type="submit" class="btn btn-default">Search</button> -->
+                </form>
+              </div>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ request.user }}<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                {% if not request.user.is_authenticated %}
+                <li><a href="{% url 'registration_register' %}">Register</a></li>
+                <li><a href="{% url 'auth_login' %}">Log In</a></li>
+                {% endif %}                  
+                <li><a href="http://127.0.0.1:8000/admin/application/shops/">Create Shop</a></li>
+                <li><a href="http://127.0.0.1:8000/admin/application/product/">Add Product</a></li>
+                <li><a href="#">Add Service</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                {% if request.user.is_authenticated %}
+                <!-- <li><a href="http://127.0.0.1:8000/accounts/profile/">Profile</a></li> -->
+                <li><a href="{% url 'auth_password_change' %}">Change Password</a></li>
+                <li><a href="{% url 'auth_password_reset' %}">Reset Password</a></li>
+                <li><a href="{% url 'auth_logout' %}">Logout</a></li>
+                {% endif %}
+              </ul>
+            </li>
+            <li><a></a></li> 
+            
+            <!-- <li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li>
+            <li><a href="../navbar-static-top/">Static top</a></li>
+            <li><a href="../navbar-fixed-top/">Fixed top</a></li> -->
+          </ul>
+        </div><!--/.nav-collapse -->        
+      </nav>
+    <div class="container-fluid">
+      <div class="row">
+      {% block content %}
+      {% block product-section %}
+      <style type="text/css">
+        .sub-category{
+          padding-left: 30px;
+          background-color: #f0f0f0;
+        }
+        .products-holder{
+           background-color: #f0f0f0;
+           border-radius: 5px;
+           border: 1px solid #f9f9f9;
+        }            
+      </style>
+        <!-- <div class="row row-offcanvas row-offcanvas-right"> -->       
+        <div class="col-xs-6 col-sm-2 col-lg-2 sidebar-offcanvas" id="sidebar">
+          <ul class="list-group">
+            {% for category in categories %}
+              <li class="list-group-item">
+                <a href="http://127.0.0.1:8000/shop/search/?q={{ category.name }}">{{ category.name }}</a>
+              </li>
+              {% for sub_category in category.sub_categories.all %}
+                <li class="list-group-item sub-category">
+                  <a href="http://127.0.0.1:8000/shop/search/?q={{ sub_category.name }}">{{ sub_category.name }}</a>
+                </li>
+              {% endfor %}
+            {% endfor %}
+          </ul>
+        </div><!--/.sidebar-offcanvas-->
+        <!-- </div> --><!-- row-offcanvas -->
+      <div class="products-holder">
+        {% block products-holder %}
+          fghj
+        {% endblock products-holder %}
+      </div><!-- products-holder -->
+      
+      {% endblock product-section %}
+      {% endblock content %}
+
+    </div><!--/row--> 
+  </div> <!-- /container -->
+  </div> <!-- /container -->
+  {% include "javascript.html" %}
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+    
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
+    
+    <!-- <script type= "text/javascript" src="{% static 'our_static/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'our_static/js/bootstrap.min.js' %}"></script> -->
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!-- <script src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script> -->
+     
+
+
+</html>

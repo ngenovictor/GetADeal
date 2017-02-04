@@ -1,0 +1,90 @@
+[
+{
+  "fields": {
+    "name": "Electronics",
+    "parent": null
+  },
+  "model": "application.category",
+  "pk": 1
+},
+{
+  "fields": {
+    "name": "Fashion",
+    "parent": null
+  },
+  "model": "application.category",
+  "pk": 2
+},
+{
+  "fields": {
+    "name": "Mobile Phones",
+    "parent": null
+  },
+  "model": "application.category",
+  "pk": 3
+},
+{
+  "fields": {
+    "name": "TVs",
+    "parent": 1
+  },
+  "model": "application.category",
+  "pk": 4
+},
+{
+  "fields": {
+    "name": "Radios",
+    "parent": 1
+  },
+  "model": "application.category",
+  "pk": 5
+},
+{
+  "fields": {
+    "name": "Computers",
+    "parent": 1
+  },
+  "model": "application.category",
+  "pk": 6
+},
+{
+  "fields": {
+    "name": "Men",
+    "parent": 2
+  },
+  "model": "application.category",
+  "pk": 7
+},
+{
+  "fields": {
+    "name": "Women",
+    "parent": 2
+  },
+  "model": "application.category",
+  "pk": 8
+},
+{
+  "fields": {
+    "name": "Sony",
+    "parent": 3
+  },
+  "model": "application.category",
+  "pk": 9
+},
+{
+  "fields": {
+    "name": "Samsung",
+    "parent": 3
+  },
+  "model": "application.category",
+  "pk": 10
+},
+{
+  "fields": {
+    "name": "HTC",
+    "parent": 3
+  },
+  "model": "application.category",
+  "pk": 11
+}
+]
